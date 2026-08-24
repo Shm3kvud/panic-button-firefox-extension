@@ -1,0 +1,61 @@
+{
+  "manifest_version": 2,
+  "name": "Panic Button – Tab Hider",
+  "version": "1.0.0",
+  "description": "Скрывает все вкладки и открывает Google по нажатию F12. Повторное нажатие возвращает всё как было.",
+  "author": "paras",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "panic-button@paras.local",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "permissions": [
+    "tabs",
+    "tabHide",
+    "storage",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["media.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "commands": {
+    "toggle-panic": {
+      "suggested_key": {
+        "default": "F12"
+      },
+      "description": "Включить/выключить режим паники (скрыть/вернуть вкладки)"
+    }
+  },
+  "browser_action": {
+    "default_title": "Panic Button (F12)",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png"
+  }
+}
